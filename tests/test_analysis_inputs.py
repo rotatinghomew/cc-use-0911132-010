@@ -19,6 +19,10 @@ class AnalysisInputsTests(unittest.TestCase):
         data = self.load_data()
         self.assertTrue(any(row['model'] == 'partial' for row in data['products']))
 
+    def test_timely_baseline(self):
+        data = self.load_data()
+        self.assertTrue(any(row['model'] == 'fast' and row['available_at'] == row['issued_at'] for row in data['products']))
+
     def test_source_versions_and_cutoff(self):
         data = self.load_data()
         self.assertEqual(data["schema_version"], 1)
